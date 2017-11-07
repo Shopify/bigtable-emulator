@@ -1,8 +1,8 @@
 # Bigtable emulator Docker image
 
-This repository contains the Google Cloud Bigtable emulator, which is an in memory Go impliementation of Bigtable allowing to create integration tests and local development. Warning: this is not a production tool.
+This repository contains the Google Cloud Bigtable emulator, which is an in memory Go implementation of Bigtable allowing to create integration tests and a local development environment. Warning: this is not a production tool.
 
-The emulator is offered in the [Google Cloud SDK](https://cloud.google.com/bigtable/docs/emulator). However, this might be difficult or overkill to install the SDK locally on every development and CI box. In that case, this image provides a lightweight alternative (&lt; 17MB). It also provides an easy way to setup necessary tables and column families at startup.
+The emulator is offered in the [Google Cloud SDK](https://cloud.google.com/bigtable/docs/emulator). However, it might be difficult or overkill to install the SDK on every development and CI box. In those situations, this image provides a lightweight alternative (&lt; 17MB). It also provides an easy way to setup necessary tables and column families at startup.
 
 # Using it
 
@@ -20,7 +20,7 @@ docker run -d -p 9035:9035 shopify/bigtable-emulator -cf dev.records.data,dev.re
 
 # Connecting to it
 
-You have to set the `BIGTABLE_EMULATOR_HOST` environment variable to the right docker host and container port. For example: `localhost:9035`. And then:
+You have to set the `BIGTABLE_EMULATOR_HOST` environment variable to the right docker host and container port (`localhost:9035` in most cases). Then:
 
 ```go
 import (
