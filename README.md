@@ -10,7 +10,7 @@ To start it, run the following command:
 docker run -it -p 9035:9035 shopify/bigtable-emulator
 ```
 
-You can specify the tables and column families you need using the `-cf` switch. The format is a comma separated list of <instance>.<table>.<column family>. Ex:
+You can specify the tables and column families you need using the `-cf` switch. The format is a comma separated list of &lt;instance>.&lt;table>.&lt;column family>. Ex:
 
 ```
 docker run -it -p 9035:9035 shopify/bigtable-emulator -cf dev.records.data,dev.records.metadata
@@ -24,7 +24,15 @@ You have to set the `BIGTABLE_EMULATOR_HOST` to the right docker host and contai
 import (
   "cloud.google.com/go/bigtable"
   "golang.org/x/net/context"
+  "golang.org/x/oauth2"
+  "google.golang.org/api/option"
 )
+
+type devTokenSource struct{}
+
+func (devTokenSource) Token() (*oauth2.Token, error) {
+  return new(oauth2.Token), nil
+}
 
 func NewDevBigTableClient() (*bigtable.Client, error) {
   ctx := context.Background()
@@ -33,7 +41,8 @@ func NewDevBigTableClient() (*bigtable.Client, error) {
   return bigtable.NewClient(
     ctx, 
     project, 
-    instance
+    instance,
+    option.WithTokenSource(&devTokenSource{}),
   )
 }
 
