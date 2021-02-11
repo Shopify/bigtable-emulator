@@ -1,5 +1,7 @@
 # Bigtable emulator Docker image
 
+[![Mentioned in Awesome Bigtable](https://awesome.re/mentioned-badge-flat.svg)](https://github.com/zrosenbauer/awesome-bigtable)
+
 This repository contains the Google Cloud Bigtable emulator, which is an in memory Go implementation of Bigtable allowing to create integration tests and a local development environment. Warning: this is not a production tool.
 
 The emulator is offered in the [Google Cloud SDK](https://cloud.google.com/bigtable/docs/emulator). However, it might be difficult or overkill to install the SDK on every development and CI box. In those situations, this image provides a lightweight alternative (&lt; 17MB). It also provides an easy way to setup necessary tables and column families at startup.
