@@ -1,6 +1,6 @@
 module github.com/Shopify/bigtable-emulator
 
-go 1.20
+go 1.22.1
 
 require (
 	cloud.google.com/go/bigtable v1.18.1

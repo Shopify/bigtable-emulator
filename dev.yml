@@ -3,7 +3,7 @@ type: go
 
 up:
   - go:
-      version: "1.20"
+      version: "1.22.1"
       skip_default_tools: true
 commands:
   make: go build -v ./...
