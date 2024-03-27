@@ -4,18 +4,16 @@ on: [release]
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [macos-13-xlarge, ubuntu-latest]
-        target: [x86_64-unknown-linux-gnu, aarch64-apple-darwin]
-        exclude:
-        # Don't build linux targets on macos
-        - os: macos-13-xlarge
-          target: x86_64-unknown-linux-gnu
-        # Don't build darwin targets on ubuntu
-        - os: ubuntu-latest
-          target: aarch64-apple-darwin
+        include:
+        - target: aarch64-apple-darwin
+          os: darwin
+          arch: arm64
+        - target: x86_64-unknown-linux-gnu
+          os: linux
+          arch: amd64
     steps:
       - uses: actions/checkout@v3
 
@@ -25,7 +23,7 @@ jobs:
           go-version: '1.20'
 
       - name: build bins
-        run: go build -v ./...
+        run: GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} go build -v ./...
       - uses: Shopify/upload-to-release@master
         with:
           name: bigtable-emulator-${{ matrix.target }}
